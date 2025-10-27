@@ -5,6 +5,9 @@ import NewsLayout from "../layout/NewsLayout";
 import ErrorPage from "../pages/ErrorPage";
 import HomePage from "../pages/HomePage";
 import Category from "../pages/Category";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
+import NewsDetailsCard from "../components/news-layout/NewsDetailsCard";
 
 // create router and and route all the layout ;
 const router = createBrowserRouter([
@@ -26,10 +29,26 @@ const router = createBrowserRouter([
   {
     path: "/auth",
     element: <AuthLayout></AuthLayout>,
+    children: [
+      {
+        path: "/auth/login",
+        Component: Login,
+      },
+      {
+        path: "/auth/register",
+        Component: Register,
+      }
+    ]
   },
   {
     path: "/news",
     element: <NewsLayout></NewsLayout>,
+    children: [
+      {
+        path: "/news/:id",
+        Component: NewsDetailsCard,
+      }
+    ]
   },
   {
     path: "/*",

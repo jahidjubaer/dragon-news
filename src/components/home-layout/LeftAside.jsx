@@ -11,7 +11,7 @@ const LeftAside = () => {
   return (
     <div className=" sticky ">
       <h1 className="font-bold text-xl mb-6">All Category</h1>
-      <div className="text-center">
+      <div className="side-bar text-center">
         {categoriesData.map((data) => (
           <NavLink
             key={data.id}

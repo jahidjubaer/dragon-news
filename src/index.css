@@ -24,6 +24,6 @@
   font-family: "Poppins", sans-serif;
 }
 
-a.active {
+.side-bar a.active {
   @apply bg-base-300 py-3 rounded-sm;
 }
