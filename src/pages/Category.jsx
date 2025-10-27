@@ -30,8 +30,15 @@ const Category = () => {
     }
   }, [id, newsData]);
 
+  console.log(category);
+
   return (
     <div>
+      <h1 className="text-2xl font-bold mb-4 ">
+        {" "}
+        Total <span className="text-secondary">{category.length}</span> News
+        Founded...
+      </h1>
       {category.map((news) => (
         <NewsCard key={news.id} news={news}></NewsCard>
       ))}

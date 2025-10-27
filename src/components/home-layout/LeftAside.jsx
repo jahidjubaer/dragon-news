@@ -9,7 +9,7 @@ const LeftAside = () => {
   // console.log(categoriesData);
 
   return (
-    <div>
+    <div className=" sticky ">
       <h1 className="font-bold text-xl mb-6">All Category</h1>
       <div className="text-center">
         {categoriesData.map((data) => (
