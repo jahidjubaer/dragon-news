@@ -1,23 +1,33 @@
 import React from "react";
+import {  useLoaderData, useNavigate, useParams } from "react-router";
 
 const NewsDetailsCard = () => {
+  const { id } = useParams();
+  console.log(id);
+  const newsData = useLoaderData();
+  console.log(newsData);
+  const cardNews = newsData.find((news) => news.id === id);
+
+  const { title, thumbnail_url, details } = cardNews;
+
+  const navigate = useNavigate(); 
+
   return (
     <div className="card bg-base-100  shadow-sm">
-      <figure className="lg:h-[410] p-4 ">
+      <figure className="lg:h-[350px] p-4 ">
         <img
-          src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-          alt="Shoes"
+          src={thumbnail_url}
+          alt={title}
           className="w-full rounded-sm h-full object-cover"
         />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">Card Title</h2>
-        <p>
-          A card component has a figure, a body part, and inside body there are
-          title and actions parts
-        </p>
+        <h2 className="card-title text-4xl">{title}</h2>
+        <p className="text-xl my-4 text-accent">{details}</p>
         <div className="card-actions justify-start">
-          <button className="btn btn-secondary">All news in this category</button>
+          <button onClick={() => navigate(-1)} className="btn btn-secondary">
+            All news in this category
+          </button>
         </div>
       </div>
     </div>

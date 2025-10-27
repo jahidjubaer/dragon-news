@@ -13,11 +13,11 @@ const NewsLayout = () => {
         <Header></Header>
       </header>
       <div className="grid grid-cols-12 mt-10 gap-10">
-        <div className="col-span-9">
-          <h1 className="my-2 font-bold text-2xl">The Dragon News</h1>
+        <div className="col-span-8">
+          <h1 className="my-2 font-bold text-4xl">The Dragon News</h1>
           <Outlet></Outlet>
         </div>
-        <aside className="col-span-3">
+        <aside className="col-span-4">
           <RightAside></RightAside>
           <FindUsOn></FindUsOn>
           <QZone></QZone>
