@@ -1,16 +1,21 @@
-import React from "react";
-import {  useLoaderData, useNavigate, useParams } from "react-router";
+import React, { useEffect, useState } from "react";
+import { useLoaderData, useNavigate, useParams } from "react-router";
 
 const NewsDetailsCard = () => {
   const { id } = useParams();
-  console.log(id);
+  // console.log(id);
   const newsData = useLoaderData();
-  console.log(newsData);
-  const cardNews = newsData.find((news) => news.id === id);
+  // console.log(newsData);
+  const [news, setNews] = useState({});
 
-  const { title, thumbnail_url, details } = cardNews;
+  useEffect(() => {
+    const cardNews = newsData.find((news) => news.id === id);
+    setNews(cardNews);
+  }, [newsData, id]);
 
-  const navigate = useNavigate(); 
+  const { title, thumbnail_url, details } = news;
+
+  const navigate = useNavigate();
 
   return (
     <div className="card bg-base-100  shadow-sm">

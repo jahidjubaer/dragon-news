@@ -8,6 +8,7 @@ import Category from "../pages/Category";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import NewsDetailsCard from "../components/news-layout/NewsDetailsCard";
+import PrivetRoute from "./PrivetRoute";
 
 // create router and and route all the layout ;
 const router = createBrowserRouter([
@@ -37,8 +38,8 @@ const router = createBrowserRouter([
       {
         path: "/auth/register",
         Component: Register,
-      }
-    ]
+      },
+    ],
   },
   {
     path: "/news",
@@ -46,10 +47,14 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/news/:id",
-        Component: NewsDetailsCard,
-        loader: () => fetch("/news.json")
-      }
-    ]
+        element: (
+          <PrivetRoute>
+            <NewsDetailsCard></NewsDetailsCard>
+          </PrivetRoute>
+        ),
+        loader: () => fetch("/news.json"),
+      },
+    ],
   },
   {
     path: "/*",
