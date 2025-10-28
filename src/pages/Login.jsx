@@ -1,9 +1,16 @@
-import React, { use } from "react";
-import { Link } from "react-router";
+import React, { use, useState } from "react";
+import { Link, Navigate, useLocation, useNavigate } from "react-router";
 import AuthContext from "../auth-provider/AuthContext";
 
 const Login = () => {
   const { userLogIn } = use(AuthContext);
+  // location ;
+  const location = useLocation();
+
+  const navigate = useNavigate();
+
+  // error state ;
+  const [error, setError] = useState("");
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -16,11 +23,11 @@ const Login = () => {
         // Signed in
         const user = userCredential.user;
         console.log(user);
+        navigate(`${location.state ? location.state : "/"}`);
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        setError(errorCode);
       });
   };
 
@@ -39,6 +46,7 @@ const Login = () => {
             name="email"
             className="input"
             placeholder="Email"
+            required
           />
           <label className="label">Password</label>
           {/* password */}
@@ -47,6 +55,7 @@ const Login = () => {
             type="password"
             className="input"
             placeholder="Password"
+            required
           />
           <div>
             <a className="link link-hover">Forgot password?</a>
@@ -56,11 +65,13 @@ const Login = () => {
             Login
           </button>
 
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+
           <p className="font-semibold mt-4 text-sm text-center">
             Dont’t Have An Account ?{" "}
             <Link to="/auth/register" className="text-secondary">
               Register
-            </Link>{" "}
+            </Link>
           </p>
         </fieldset>
       </form>

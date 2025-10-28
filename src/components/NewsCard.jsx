@@ -3,7 +3,7 @@ import { FaStar, FaEye, FaBookmark, FaShareAlt } from "react-icons/fa";
 import { Link } from "react-router";
 
 const NewsCard = ({ news }) => {
-  const { title, rating, total_view, author, thumbnail_url, details, id  } =
+  const { title, rating, total_view, author, thumbnail_url, details, id } =
     news;
 
   // Format date
@@ -27,7 +27,9 @@ const NewsCard = ({ news }) => {
             </div>
           </div>
           <div>
-            <h3 className="font-semibold text-gray-800 text-xl">{author.name}</h3>
+            <h3 className="font-semibold text-gray-800 text-xl">
+              {author.name}
+            </h3>
             <p className=" text-gray-500">
               {formatDate(author.published_date)}
             </p>
@@ -38,7 +40,7 @@ const NewsCard = ({ news }) => {
             <FaBookmark size={24} className="text-gray-600" />
           </button>
           <button className="btn btn-ghost btn-sm btn-square">
-            <FaShareAlt size={24}  className="text-gray-600" />
+            <FaShareAlt size={24} className="text-gray-600" />
           </button>
         </div>
       </div>
@@ -64,7 +66,11 @@ const NewsCard = ({ news }) => {
         <p className="text-gray-600 text-xl leading-relaxed">
           {details.substring(0, 250)}...
         </p>
-        <Link to={`/news/${id}`} className="text-orange-500 font-semibold text-xl mt-2 hover:underline">
+        {/* got to new details  */}
+        <Link
+          to={`/news/${id}`}
+          className="text-orange-500 font-semibold text-xl mt-2 hover:underline"
+        >
           Read More
         </Link>
       </div>
@@ -87,7 +93,7 @@ const NewsCard = ({ news }) => {
           </span>
         </div>
         <div className="flex items-center gap-2 text-gray-600">
-          < FaEye  size={24}/>
+          <FaEye size={24} />
           <span className="text-xl font-medium">{total_view}</span>
         </div>
       </div>

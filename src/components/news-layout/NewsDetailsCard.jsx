@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useLoaderData, useNavigate, useParams } from "react-router";
+import {
+  useLoaderData,
+  useNavigate,
+  useParams,
+} from "react-router";
 
 const NewsDetailsCard = () => {
   const { id } = useParams();

@@ -1,10 +1,24 @@
-import React, { use } from "react";
-import { Link } from "react-router";
+import React, { use, useState } from "react";
+import { Link, useNavigate } from "react-router";
 import AuthContext from "../auth-provider/AuthContext";
 
 const Register = () => {
   // get the function write in auth provider ;
-  const { createNewUser, setUser } = use(AuthContext);
+  const { createNewUser, setUser, userProfileUpdate } = use(AuthContext);
+  // form validation ;
+  const [nameError, setNameError] = useState("");
+  const [urlError, setUrlError] = useState("");
+
+  const navigate = useNavigate();
+
+  // url validation ;
+  const pattern = new RegExp(
+    "^(https?:\\/\\/)?" + // protocol
+      "([\\w-]+\\.)+[\\w-]{2,}" + // domain name
+      "(\\:[0-9]{1,5})?" + // optional port
+      "(\\/.*)?$", // path
+    "i"
+  );
 
   // handle register
   const handleRegister = (event) => {
@@ -15,12 +29,30 @@ const Register = () => {
     const imgUrl = event.target.imgUrl.value;
     // console.log({ name, email, password });
 
+    // name validation ;
+    if (name.length < 6) {
+      setNameError("name should be six character");
+      return;
+    }
+    // url validation ;
+    if (pattern.test(imgUrl) !== true) {
+      setUrlError("invalid url");
+      return;
+    }
+
     createNewUser(email, password)
       .then((result) => {
-        // console.log(result.user);
-        result.user.displayName = name;
-        result.user.photoURL = imgUrl;
-        setUser(result.user);
+        navigate("/");
+        userProfileUpdate({
+          displayName: name,
+          photoURL: imgUrl,
+        })
+          .then(() => {
+            setUser(...result.user, name, imgUrl);
+          })
+          .catch(() => {
+            setUser(result.user);
+          });
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -40,6 +72,7 @@ const Register = () => {
           {/* name */}
           <label className="label">Name</label>
           <input name="name" type="text" className="input" placeholder="Name" />
+          {nameError && <p className="text-red-500 text-sm">{nameError}</p>}
           {/* url */}
           <label className="label">Photo URL</label>
           <input
@@ -48,6 +81,7 @@ const Register = () => {
             className="input"
             placeholder="Photo URL"
           />
+          {urlError && <p className="text-red-500 text-xm">{urlError}</p>}
           {/* email */}
           <label className="label">Email</label>
           <input
